@@ -1,5 +1,5 @@
 'use strict';
-
+/*
 // Counting Sheep
 
 let countSheep = function(numberOfSheep) {
@@ -65,3 +65,114 @@ function triangularNumber(n){
 }
 
 console.log([1, 2, 3, 4, 5, 6, 7, 8, 9].map(triangularNumber));
+
+function recursionNumber(n){
+  if(n === 0){ 
+    return 0;
+  }
+
+  return (n % 2) + 10 * recursionNumber(Math.floor(n/2));
+}
+
+
+console.log(recursionNumber(10));
+
+let findFactorial = function(n){
+  if(n === 1){
+    return 1;
+  }
+  return n * (findFactorial(n-1));
+};
+
+console.log(findFactorial(5));
+
+let fibonacci = function(n){
+  if(n <= 1){
+    return n;
+  }
+  return fibonacci(n-1) + fibonacci(n-2);
+};
+
+console.log(fibonacci(10));
+*/
+/*
+  east
+    ast
+      st
+      ts
+    sta
+      ta
+      at
+    tas
+      as
+      sa
+  aste
+    ste
+      te
+      et
+    tes
+      es
+      se
+    est
+      st
+      ts
+  stea
+    tea
+      ea
+      ae
+    eat
+      at
+      ta
+    ate
+      te
+      et
+  teas
+    eas
+      as
+      sa
+    ase
+      se
+      es
+    sea
+      ea
+      ae
+*/
+
+function rotateWord(word){
+  const rotations = [];
+  let rotatedWord = word;
+  for(let i = 0; i < word.length; i++){
+    rotatedWord = rotatedWord.slice(1) + rotatedWord[0];
+    rotations.push(rotatedWord);
+  }
+  return rotations;
+}
+
+function anagrams(word){
+  const rotations = rotateWord(word);
+  if(word.length === 2){
+    return rotations;
+  }
+  const array = [];
+  for(let i = 0; i < rotations.length; i++){
+    const prefix = rotations[i][0];
+    const suffixes = anagrams(rotations[i].slice(1));
+    for(let j = 0; j < suffixes.length; j++){
+      array.push(prefix + suffixes[j]);
+    }
+  }
+  return array;
+}
+
+function testingAnagrams(word, prefix){
+  console.log(prefix + ' + ' + word);
+  if(word.length === 1){
+    return word;
+  }
+  prefix = prefix + word[0];
+  testingAnagrams(word.slice(1), prefix);
+}
+
+console.log(anagrams('test'));
+
+//'te + sting'
