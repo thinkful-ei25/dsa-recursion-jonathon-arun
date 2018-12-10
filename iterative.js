@@ -118,8 +118,8 @@ function rotateWord(word) {
 
 
 function anagrams(word){
-  let anagrams = rotateWord(word.slice(0,2));
-  for(let i = 2; i < word.length; i++){
+  let anagrams = [word.charAt(0)];
+  for(let i = 1; i < word.length; i++){
     const nextChar = word[i];
     let temp = [];
     for(let j = 0; j < anagrams.length; j++){
@@ -129,7 +129,7 @@ function anagrams(word){
   }
   return anagrams;
 } 
-console.log(anagrams('e'));
+console.log(anagrams('east'));
 
 /*
   east
