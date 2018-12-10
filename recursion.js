@@ -33,7 +33,6 @@ console.log(arrayDouble([2, 6, 10]));
 console.log(arrayDouble([1, 2, 3]));
 console.log(arrayDouble([2, 5, 6]));
 
-
 // reverseString
 
 // Input: a string
@@ -41,8 +40,8 @@ console.log(arrayDouble([2, 5, 6]));
 //Input to recursive call: string - char[1...n]
 //Output to recursive call: char[1...n] reversed
 
-function reverseString(string){
-  if(string === ''){
+function reverseString(string) {
+  if (string === '') {
     return '';
   }
   return reverseString(string.slice(1)) + string[0];
@@ -57,11 +56,61 @@ console.log(reverseString('a quick brown fox jumped over the lazy frog'));
 //Input to recursive call: (n-1)
 //Output to recursive call: triangular number for that row
 
-function triangularNumber(n){
-  if(n <= 1){
+function triangularNumber(n) {
+  if (n <= 1) {
     return 1;
   }
-  return n + triangularNumber(n-1);
+  return n + triangularNumber(n - 1);
 }
 
 console.log([1, 2, 3, 4, 5, 6, 7, 8, 9].map(triangularNumber));
+
+// String Splitter
+// Input: String and separator character
+// Ouptut: Array of strings ('words') without the separator character
+// Input (recursive): string from n to separator
+// Output: array of words
+
+// splitter('hello', 'l') -> ['he', 'o']
+
+// if the string is empty, return empty string
+// while charAt(i) != separator
+// return [str.slice(0, i)] + splitter(str.slice(i))
+
+// return charAt(0) === separator ? return charAt
+
+// base case: empty string
+// character === separator: return fn(slice(1), separator)
+// return str[0] + fn(slice(1), separator)
+
+// e.g: "hello world", " ":
+// ["h" "e" "l" "l" "o"
+
+// d
+//   l
+//      r
+//        o
+//          w
+//            _            ['hi', ''] => [...returnVal, '']
+//               i       = ['hi']
+//                  h      [...array[0:-1], array[-1] + 'h']
+//                    ""   ['']
+
+// Input: string + separator
+// Ouput: array of strings
+// Input to the recursive call: substring
+// Ouput from each recurisve call: array of (possibly partial) words
+
+let splitter = function(sentence, separator) {
+  if (sentence === '') {
+    return '';
+  }
+
+  if (sentence.charAt(0) === separator) {
+    return [] + splitter(sentence.slice(1), separator);
+  }
+
+  return [sentence.charAt(0) + splitter(sentence.slice(1), separator)];
+};
+
+console.log(splitter('hello world', ' '));
