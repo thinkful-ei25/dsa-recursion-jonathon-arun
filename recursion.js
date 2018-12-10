@@ -194,41 +194,83 @@ console.log(fibonacci(10));
       ae
 */
 
-function rotateWord(word){
+function rotateWord(word) {
   const rotations = [];
   let rotatedWord = word;
-  for(let i = 0; i < word.length; i++){
+  for (let i = 0; i < word.length; i++) {
     rotatedWord = rotatedWord.slice(1) + rotatedWord[0];
     rotations.push(rotatedWord);
   }
   return rotations;
 }
 
-function anagrams(word){
+function anagrams(word) {
   const rotations = rotateWord(word);
-  if(word.length === 2){
+  if (word.length === 2) {
     return rotations;
   }
   const array = [];
-  for(let i = 0; i < rotations.length; i++){
+  for (let i = 0; i < rotations.length; i++) {
     const prefix = rotations[i][0];
     const suffixes = anagrams(rotations[i].slice(1));
-    for(let j = 0; j < suffixes.length; j++){
+    for (let j = 0; j < suffixes.length; j++) {
       array.push(prefix + suffixes[j]);
     }
   }
   return array;
 }
 
-function testingAnagrams(word, prefix){
+function testingAnagrams(word, prefix) {
   console.log(prefix + ' + ' + word);
-  if(word.length === 1){
+  if (word.length === 1) {
     return word;
   }
   prefix = prefix + word[0];
   testingAnagrams(word.slice(1), prefix);
 }
 
-console.log(anagrams('test'));
+// console.log(anagrams('test'));
 
 //'te + sting'
+
+// Organizational Chart
+
+/*
+Input: an object:
+  {
+    name: 'Zuckerberg',
+    children: [
+      { name: 'Schroepfer', children: [...] },
+      ...
+    ]
+  }
+*/
+function generateIndentation(level) {
+  let spaces = '';
+  for (let i = 0; i < level; i += 1) {
+    spaces += '    ';
+  }
+  return spaces;
+}
+
+function traverseFacebook(employee, level = 0) {
+  console.log(generateIndentation(level) + employee.name);
+  employee.children.forEach((child) => {
+    return traverseFacebook(child, level + 1);
+  });
+}
+
+traverseFacebook({
+  name: 'zuck',
+  children: [
+    {
+      name: 'schroepfer',
+      children: [
+        {
+          name: 'bosworth',
+          children: [{ name: 'steve', children: [] }, { name: 'kyle', children: [] }],
+        },
+      ],
+    },
+  ],
+});
