@@ -105,3 +105,48 @@ function fibIterative(number){
   return sums[j%2];
 }
 console.log(fibIterative(2));
+
+function rotateWord(word) {
+  const rotations = [];
+  let rotatedWord = word;
+  for (let i = 0; i < word.length; i++) {
+    rotatedWord = rotatedWord.slice(1) + rotatedWord[0];
+    rotations.push(rotatedWord);
+  }
+  return rotations;
+}
+
+
+function anagrams(word){
+  let anagrams = rotateWord(word.slice(0,2));
+  for(let i = 2; i < word.length; i++){
+    const nextChar = word[i];
+    let temp = [];
+    for(let j = 0; j < anagrams.length; j++){
+      temp = temp.concat(rotateWord(anagrams[j] + nextChar));
+    }
+    anagrams = temp;
+  }
+  return anagrams;
+} 
+console.log(anagrams('e'));
+
+/*
+  east
+  esta
+  etas
+east
+  aste
+  ates
+  aest
+aste
+  stea
+  seat
+  sate
+stea
+  teas
+  tase
+  tsea
+teas
+
+*/
