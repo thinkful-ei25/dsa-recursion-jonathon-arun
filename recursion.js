@@ -7,10 +7,8 @@ let countSheep = function(numberOfSheep) {
     return '';
   }
 
-  return (
-    `${numberOfSheep} - Another sheep jump over the fence\n` +
-    countSheep(numberOfSheep - 1)
-  );
+  console.log(`${numberOfSheep} - Another sheep jump over the fence`);
+  return countSheep(numberOfSheep - 1);
 };
 
-console.log(countSheep(3));
+countSheep(3);
