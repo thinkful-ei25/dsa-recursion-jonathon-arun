@@ -83,8 +83,8 @@ console.log([1, 2, 3, 4, 5, 6, 7, 8, 9].map(triangularNumber));
 // character === separator: return fn(slice(1), separator)
 // return str[0] + fn(slice(1), separator)
 
-// e.g: "hello world", " ":
-// ["h" "e" "l" "l" "o"
+// e.g: "hi world", " ":
+// ["h" "i" ...
 
 // d
 //   l
@@ -101,16 +101,24 @@ console.log([1, 2, 3, 4, 5, 6, 7, 8, 9].map(triangularNumber));
 // Input to the recursive call: substring
 // Ouput from each recurisve call: array of (possibly partial) words
 
-let splitter = function(sentence, separator) {
+function splitter(sentence, separator) {
   if (sentence === '') {
-    return '';
+    return [''];
   }
 
-  if (sentence.charAt(0) === separator) {
-    return [] + splitter(sentence.slice(1), separator);
+  const inputToRecursion = sentence.slice(0, -1);
+  const outputFromRecursion = splitter(inputToRecursion, separator);
+
+  console.log(outputFromRecursion);
+
+  if (sentence[sentence.length - 1] === separator) {
+    return outputFromRecursion.concat(['']);
   }
 
-  return [sentence.charAt(0) + splitter(sentence.slice(1), separator)];
-};
+  const lastItem = outputFromRecursion[outputFromRecursion.length - 1];
+  const newLastItem = lastItem + sentence[sentence.length - 1];
+  return outputFromRecursion.slice(0, -1).concat([newLastItem]);
+}
 
 console.log(splitter('hello world', ' '));
+console.log(splitter('hello', 'l'));
